@@ -14,5 +14,7 @@
 
 ## Study
 
-[Chap02 파일 입출력](chap2/Chap2_file-input-output.md)
+[Chap02 파일 입출력](docs/Chap2_file-input-output.md)
+
+[Chap03 파일과 디렉토리](docs/Chap3_file-and-directory.md)
 
