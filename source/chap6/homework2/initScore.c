@@ -16,7 +16,7 @@ int main(void) {
     }
 
     for (i=0; i<100; i++) {
-        fprintf(wfp, "%d %d\n", 2016301001+i, rand()%101);
+        fprintf(wfp, "%d %d\n", 2020301001+i, rand()%101);
     }
     
     fclose(rfp);
