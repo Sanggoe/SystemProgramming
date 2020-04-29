@@ -1,9 +1,11 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 
 int main(void) {
     FILE *rfp, *wfp;
     int i;
+    srand((unsigned)time(NULL));
 
     if ((rfp = fopen("data.txt", "r")) == NULL) {
 	perror("fopen: data.txt");

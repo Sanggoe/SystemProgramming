@@ -32,7 +32,8 @@ int main(void) {
 	    exit(1);
 	    break;
 	case 0 : // if child process
-	    if(execlp("./child", "./child", "./data.txt", "1", "50", (char*)NULL) == -1) {
+	    printf("자식1 불렀어!\n");
+	    if(execlp("./child", "./child", "data.txt", "1", "50", "result1.txt", (char*)NULL) == -1) {
 		perror("execlp");
 		exit(1);
 	    }
@@ -50,7 +51,8 @@ int main(void) {
             exit(1);
             break;
         case 0 : // if child process
-            if(execlp("./child", "./child", "./data.txt", "51", "100", (char*)NULL) == -1) {
+	    printf("자식2 불렀어!\n");
+            if(execlp("./child", "./child", "data.txt", "51", "100", "result2.txt", (char*)NULL) == -1) {
                 perror("execlp");
                 exit(1);
             }
@@ -62,7 +64,7 @@ int main(void) {
             break;
     }
 
-    sum += getValue("test.txt") + getValue("test.txt");
+    sum += getValue("result1.txt") + getValue("result2.txt");
     printf("total sum of score is : %d\n", sum);
 
     return 0;
