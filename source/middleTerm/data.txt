@@ -1,0 +1,7 @@
+l_1: This file name is data.txt.
+l_2: This is middle term assignment.
+l_3: My name is sangmin Park, student number is 2016301035.
+l_4:
+l_5: I have to study hard to programming well than before. And this major is System programming. This line have to be long because I want to test it. If consol size is change, then this line also have to be changed. And it will be change.
+l_6: Programming is fun(?). Maybe...
+l_7: This is the end of the file.
