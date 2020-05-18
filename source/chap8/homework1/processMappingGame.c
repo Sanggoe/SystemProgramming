@@ -8,7 +8,7 @@
 
 int main(int argc, char* argv[]) {
     int fd;
-    int turn = 0;
+    int value, randNum;
     char buf[5];
     pid_t pid;
     caddr_t addr;
@@ -37,7 +37,8 @@ int main(int argc, char* argv[]) {
     }
     close(fd);
 
-    printf("parent\tvalue\tchild\n");
+    printf("parent\tvalue\tchild\n\t %2d\n", (int)(addr[2]-'0'));
+
     switch (pid = fork()) {
 	case -1: /* fork failed */
 	    perror("fork");
@@ -46,21 +47,35 @@ int main(int argc, char* argv[]) {
 	case 0: /* child process */
 	    while(1) {
 		if (addr[0] == '1') { // if child turn
-		    int value, num = rand()%3 + 1;
-		    buf[0] = addr[2];
-		    buf[1] = addr[3];
-		    buf[2] = '\0';
+		    int i = 2;
 
-		    value = atoi(buf) + num;
-		    printf("\t %2d %6d\t(c)\n", value, num);
+		    while (addr[i] != '\n' && addr[i] != '\0') {
+			buf[i-2] = addr[i];
+			i++;
+		    }
+		    buf[i-2] = '\0';
+
+		    randNum = rand() % 3 + 1;
+		    value = atoi(buf) + randNum;
+		    printf("\t %2d %6d\t(c)\n", value, randNum);
+
 		    if(value > 20) {
 			printf("child process loss!\n");
 			addr[0] = '2';
 			break;
 		    }
 
-		    addr[2] = value/10 + '0';
-                    addr[3] = value%10 + '0';
+		    i = 0;
+		    while (value != 0) {
+			buf[i++] = value % 10 + '0';
+			value /= 10;
+		    }
+		    i--;
+
+		    for(int j=2; i>=0; i--, j++) {
+			addr[j] = buf[i];
+		    }
+
 		    sleep(1);
 		    addr[0] = '0';
 		} else if (addr[0] == '2') {
@@ -72,21 +87,35 @@ int main(int argc, char* argv[]) {
 	default: /* parent process */
 	    while(1) {
 		if (addr[0] == '0') { // if parent turn
-		    int value, num = rand()%3 + 1;
-                    buf[0] = addr[2];
-                    buf[1] = addr[3];
-                    buf[2] = '\0';
+		    int i = 2;
+                    
+		    while (addr[i] != '\n' && addr[i] != '\0') {
+			buf[i-2] = addr[i];
+			i++;
+		    }
+                    buf[i-2] = '\0';
 
-                    value = atoi(buf) + num;
-                    printf("%4d %6d \t\t(p)\n", num, value);
+		    randNum = rand() % 3 + 1;
+                    value = atoi(buf) + randNum;
+                    printf("%4d %6d \t\t(p)\n", randNum, value);
+
 		    if(value > 20) {
                         printf("parent process loss!\n");
                         addr[0] = '2';
                         break;
                     }
         
-                    addr[2] = value/10 + '0';
-                    addr[3] = value%10 + '0';
+		    i = 0;
+                    while(value != 0) {
+			buf[i++] = value %10 + '0';
+			value /= 10;
+		    }
+		    i--;
+
+		    for(int j = 2; i >= 0; i--, j++) {
+			addr[j] = buf[i];
+		    }
+
                     sleep(1);
 		    addr[0] = '1';
 		} else if (addr[0] == '2') {
