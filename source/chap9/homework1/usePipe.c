@@ -35,7 +35,6 @@ int main(void) {
 
 	    // receive from parent
 	    while((len = read(fd1[0], buf, 100)) > 0) {
-
 		/* ascii code => '0':48, '9':57, 'A':65, 'Z':90, 'a':97, 'z':122 */
     		for(int i=0; i<len; i++) { // check each characters
 		    if(buf[i] == 65 || buf[i] == 69 || buf[i] == 73 || buf[i] == 79 || buf[i] == 85 ||
@@ -60,7 +59,7 @@ int main(void) {
 	    close(fd1[0]);
 	    close(fd2[1]);
 
-	    if ((fd = open("data.txt", O_RDONLY)) == -1) {
+	    if ((fd = open("test.txt", O_RDONLY)) == -1) {
 		perror("open");
 		exit(1);
 	    }
@@ -69,6 +68,7 @@ int main(void) {
 	    while((len = read(fd, buf, 100)) > 0) {
 		write(fd1[1], buf, len);
 	    }
+	    write(fd1[1], "\n", 1);
     	    
 	    // receive from child
 	    len = read(fd2[0], buf, 100);
