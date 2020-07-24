@@ -16,7 +16,7 @@ int main(void) {
 	exit(1);
     }
 
-//    while(1) {
+    while(1) {   
     if ((pd = open("./HAN-FIFO", O_WRONLY)) == -1) {
 	perror("open");
 	exit(1);
@@ -32,7 +32,7 @@ int main(void) {
     close(pd);
 
     sleep(1);
-//    }
+    }
 
     return 0;
 }

@@ -9,7 +9,7 @@ int main(void) {
     int fd;
     mode_t mode;
 
-    mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
+    mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH; // 0644
 
     fd = open("unix.txt", O_CREAT, mode);
     if (fd == -1) {

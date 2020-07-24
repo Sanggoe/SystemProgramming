@@ -21,10 +21,10 @@ int main(void) {
 
     while ((n = read(rfd, buf, 6)) > 0) {
 	if (write(wfd, buf, n) != n)
-		perror("Write");
+	    perror("Write");
     }
 
-    if (n ==-1)
+    if (n == -1)
 	perror("Read");
 
     close(rfd);

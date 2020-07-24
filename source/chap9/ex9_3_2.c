@@ -25,7 +25,7 @@ int main(void) {
 	    close(fd[1]);
 	    write(1, "Child Process: ", 15);
 	    len = read(fd[0], buf, 256);
-	    printf("Childe got len from fd[0]\n");
+	    printf("Child got len from fd[0]\n");
 	    write(1, buf, len);
 	    printf("Child print it\n");
 	    value = atoi(buf);

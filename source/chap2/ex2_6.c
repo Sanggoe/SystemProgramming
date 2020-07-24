@@ -18,7 +18,7 @@ int main(void) {
     start = lseek(fd, 0, SEEK_CUR);
     n = read(fd, buf, 255);
     buf[n] = '\0';
-    printf("OFFset start=%d, Read Str=%s, n=%d\n", (int)start, buf, n);
+    printf("offset start=%d, Read Str=%s, n=%d\n", (int)start, buf, n);
     cur = lseek(fd, 0, SEEK_CUR);
     printf("Offset cur=%d\n", (int)cur);
 
